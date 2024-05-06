@@ -1,0 +1,141 @@
+[gd_scene load_steps=17 format=3 uid="uid://clb3nf5f21510"]
+
+[ext_resource type="Texture2D" uid="uid://ciw5qu0858ts3" path="res://Assets/Sprites/Sez/Sez_Default.png" id="1_3256d"]
+[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_y03pg"]
+[ext_resource type="Texture2D" uid="uid://1ra55lb878gi" path="res://Assets/Sprites/Sez/Sez_Forward1.png" id="2_ysqt0"]
+[ext_resource type="Texture2D" uid="uid://c1uppheyrhbi6" path="res://Assets/Sprites/Sez/Sez_Swing_1.png" id="3_c7t7d"]
+[ext_resource type="Texture2D" uid="uid://7mhgrht2dq2u" path="res://Assets/Sprites/Sez/Sez_Forward2.png" id="3_ldo53"]
+[ext_resource type="Texture2D" uid="uid://chheevw4jicbq" path="res://Assets/Sprites/Sez/Sez_Swing_2.png" id="4_0ciiu"]
+[ext_resource type="Texture2D" uid="uid://0xvi27k44v7d" path="res://Assets/Sprites/Sez/Sez_Left1.png" id="4_8nkmk"]
+[ext_resource type="Texture2D" uid="uid://m8tfg647db0" path="res://Assets/Sprites/Sez/Sez_Swing_3.png" id="5_baxhn"]
+[ext_resource type="Texture2D" uid="uid://drg8qiydb6l7d" path="res://Assets/Sprites/Sez/Sez_Left2.png" id="5_re8dv"]
+[ext_resource type="Texture2D" uid="uid://bjnoetbn7g7ga" path="res://Assets/Sprites/Sez/Sez_Swing_4.png" id="6_5jhg0"]
+[ext_resource type="Texture2D" uid="uid://cci3exxbgghvy" path="res://Assets/Sprites/Sez/Sez_Right1.png" id="6_mcv4n"]
+[ext_resource type="Texture2D" uid="uid://bf3h8vugi1t5t" path="res://Assets/Sprites/Sez/Sez_Swing_5.png" id="7_5mkbw"]
+[ext_resource type="Texture2D" uid="uid://0yvfg80q473j" path="res://Assets/Sprites/Sez/Sez_Right2.png" id="7_if3mv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p07l8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3256d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_c7t7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0ciiu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_baxhn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5jhg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5mkbw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5jhg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_baxhn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0ciiu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_c7t7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_3256d")
+}],
+"loop": true,
+"name": &"Attacking",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3256d")
+}],
+"loop": true,
+"name": &"Static",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ysqt0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ldo53")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_8nkmk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_re8dv")
+}],
+"loop": true,
+"name": &"Walking_Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_mcv4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_if3mv")
+}],
+"loop": true,
+"name": &"Walking_Right",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ffaix"]
+radius = 22.6667
+height = 53.3333
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q24v2"]
+radius = 50.6665
+height = 101.333
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+scale = Vector2(0.75, 0.75)
+collision_layer = 3
+script = ExtResource("1_y03pg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_p07l8")
+animation = &"Attacking"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.33333, 17.3333)
+shape = SubResource("CapsuleShape2D_ffaix")
+metadata/_edit_group_ = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_q24v2")
+
+[node name="DamageCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyShapeEntered"]
+[connection signal="body_exited" from="Hitbox" to="." method="OnHitboxBodyShapeExited"]
+[connection signal="timeout" from="DamageCooldown" to="." method="OnDamageCooldownTimeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="OnAttackCooldownTimeout"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://odksn2yfw2h3"]
+
+[ext_resource type="Script" path="res://Scenes/Areas/House/House.cs" id="1_1tsl0"]
+[ext_resource type="PackedScene" uid="uid://4xf2lyoppmr8" path="res://Scenes/Areas/House/HouseBackground.tscn" id="2_eunwr"]
+[ext_resource type="PackedScene" uid="uid://clb3nf5f21510" path="res://Scenes/Player/Player.tscn" id="3_j7mxh"]
+[ext_resource type="PackedScene" uid="uid://b4dyvymvs1wqo" path="res://Scenes/Mobs/Snake/Snake.tscn" id="4_ohrly"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_as87s"]
+size = Vector2(192, 91)
+
+[node name="House" type="Node2D"]
+script = ExtResource("1_1tsl0")
+
+[node name="HouseBackground" parent="." instance=ExtResource("2_eunwr")]
+
+[node name="Player" parent="." instance=ExtResource("3_j7mxh")]
+position = Vector2(986, 526)
+
+[node name="Snake" parent="." instance=ExtResource("4_ohrly")]
+position = Vector2(214, 192)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(994, 631)
+shape = SubResource("RectangleShape2D_as87s")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]
