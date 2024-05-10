@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://clb3nf5f21510"]
+[gd_scene load_steps=18 format=3 uid="uid://clb3nf5f21510"]
 
 [ext_resource type="Texture2D" uid="uid://ciw5qu0858ts3" path="res://Assets/Sprites/Sez/Sez_Default.png" id="1_3256d"]
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_y03pg"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cci3exxbgghvy" path="res://Assets/Sprites/Sez/Sez_Right1.png" id="6_mcv4n"]
 [ext_resource type="Texture2D" uid="uid://bf3h8vugi1t5t" path="res://Assets/Sprites/Sez/Sez_Swing_5.png" id="7_5mkbw"]
 [ext_resource type="Texture2D" uid="uid://0yvfg80q473j" path="res://Assets/Sprites/Sez/Sez_Right2.png" id="7_if3mv"]
+[ext_resource type="Texture2D" uid="uid://cn6kjjywtj6ht" path="res://Assets/Sprites/Sez/Sez_Block.png" id="8_yqvky"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p07l8"]
 animations = [{
@@ -53,6 +54,14 @@ animations = [{
 "loop": true,
 "name": &"Attacking",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_yqvky")
+}],
+"loop": true,
+"name": &"Blocking",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -115,7 +124,8 @@ z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_p07l8")
-animation = &"Attacking"
+animation = &"Walking_Right"
+frame_progress = 0.67247
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

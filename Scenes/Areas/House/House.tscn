@@ -25,5 +25,8 @@ position = Vector2(214, 192)
 position = Vector2(994, 631)
 shape = SubResource("RectangleShape2D_as87s")
 
+[node name="Snake2" parent="." instance=ExtResource("4_ohrly")]
+position = Vector2(725, 253)
+
 [connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
 [connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]

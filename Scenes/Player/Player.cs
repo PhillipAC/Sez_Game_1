@@ -6,9 +6,11 @@ public partial class Player : CharacterBody2D
 
 	public bool EnemyCanAttack = false;
 	public bool IsDamageCooldown = false;
+	[Export]
 	public int Health = 100;
 	public bool IsAlive = true;
 	public bool IsAttacking = false;
+	public bool IsBlocking = false;
 
 	[Export]
 	public int Speed {get; set;} = 400;
@@ -29,7 +31,7 @@ public partial class Player : CharacterBody2D
 		if(IsAlive)
 		{
 			SetAnimation(velocity);
-			Attack();
+			CheckUserInput();
 			MovePlayer(velocity);
 		}
 
@@ -37,7 +39,14 @@ public partial class Player : CharacterBody2D
 		{
 			IsAlive = false;
 			Health = 0;
+			GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = "Static";
 			GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipV = true;
+		}
+
+		if(Input.IsActionPressed("Restart"))
+		{
+			var scene = GetTree().CurrentScene;
+			GetTree().ChangeSceneToFile(scene.SceneFilePath);
 		}
 	}
 
@@ -76,7 +85,11 @@ public partial class Player : CharacterBody2D
 	private void SetAnimation(Vector2 velocity)
 	{
 		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		if(IsAttacking)
+		if(IsBlocking)
+		{
+			animatedSprite2D.Animation = "Blocking";
+		}
+		else if(IsAttacking)
 		{
 			animatedSprite2D.Animation = "Attacking";
 		}
@@ -126,7 +139,7 @@ public partial class Player : CharacterBody2D
 
 	private void CheckBeingAttacked()
 	{
-		if(EnemyCanAttack && !IsDamageCooldown)
+		if(EnemyCanAttack && !IsDamageCooldown && !IsBlocking)
 		{
 			Health -= 10;
 			GD.Print($"Player Health {Health}");
@@ -147,9 +160,19 @@ public partial class Player : CharacterBody2D
 		IsAttacking = false;
 	}
 
-	private void Attack()
+	private void CheckUserInput()
 	{
-		if(Input.IsActionPressed("Attack") && !IsAttacking)
+		if(Input.IsActionPressed("Block") && !IsAttacking)
+		{
+			IsBlocking = true;
+			IsAttacking = false;
+		}
+		else
+		{
+			IsBlocking = false;
+		}
+
+		if(Input.IsActionPressed("Attack") && !IsAttacking && !IsBlocking)
 		{
 			IsAttacking = true;
 			GetNode<Timer>("AttackCooldown").Start();

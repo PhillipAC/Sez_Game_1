@@ -12,8 +12,8 @@ public partial class Game : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GetNode<HUD>("../HUD").UpdateScore(_gameScore);
-		GetNode<HUD>("../HUD").UpdateHealth(_health);
+		GetNode<HUD>("HUD").UpdateScore(_gameScore);
+		GetNode<HUD>("HUD").UpdateHealth(_health);
 		GetNode<Timer>("ScoreTimer").Start();
 	}
 
@@ -25,6 +25,6 @@ public partial class Game : Node
 	private void OnScoreTimerTimeout()
 	{
 		_gameScore++;
-		GetNode<HUD>("../HUD").UpdateScore(_gameScore);
+		GetNode<HUD>("HUD").UpdateScore(_gameScore);
 	}
 }
