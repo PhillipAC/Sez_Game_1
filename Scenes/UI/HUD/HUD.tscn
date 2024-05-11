@@ -4,10 +4,10 @@
 [ext_resource type="Theme" uid="uid://deotdc2ar7n3n" path="res://Assets/FontThemes/Default.tres" id="1_kefrc"]
 
 [node name="HUD" type="Node2D"]
+z_index = 5
 script = ExtResource("1_gdcio")
 
 [node name="HealthLabel" type="Label" parent="."]
-visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 140.0

@@ -2,19 +2,17 @@
 
 [ext_resource type="Script" path="res://Scenes/Areas/House/House.cs" id="1_1tsl0"]
 [ext_resource type="PackedScene" uid="uid://4xf2lyoppmr8" path="res://Scenes/Areas/House/HouseBackground.tscn" id="2_eunwr"]
-[ext_resource type="PackedScene" uid="uid://clb3nf5f21510" path="res://Scenes/Player/Player.tscn" id="3_j7mxh"]
 [ext_resource type="PackedScene" uid="uid://b4dyvymvs1wqo" path="res://Scenes/Mobs/Snake/Snake.tscn" id="4_ohrly"]
+[ext_resource type="PackedScene" uid="uid://bcrwmd0hxapju" path="res://Scenes/Items/Heart/Heart.tscn" id="4_qea6y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_as87s"]
 size = Vector2(192, 91)
 
 [node name="House" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_1tsl0")
 
 [node name="HouseBackground" parent="." instance=ExtResource("2_eunwr")]
-
-[node name="Player" parent="." instance=ExtResource("3_j7mxh")]
-position = Vector2(986, 526)
 
 [node name="Snake" parent="." instance=ExtResource("4_ohrly")]
 position = Vector2(214, 192)
@@ -27,6 +25,18 @@ shape = SubResource("RectangleShape2D_as87s")
 
 [node name="Snake2" parent="." instance=ExtResource("4_ohrly")]
 position = Vector2(725, 253)
+
+[node name="Heart" parent="." instance=ExtResource("4_qea6y")]
+position = Vector2(91, 550)
+
+[node name="Heart2" parent="." instance=ExtResource("4_qea6y")]
+position = Vector2(140, 550)
+
+[node name="Heart3" parent="." instance=ExtResource("4_qea6y")]
+position = Vector2(190, 549)
+
+[node name="Heart4" parent="." instance=ExtResource("4_qea6y")]
+position = Vector2(240, 550)
 
 [connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
 [connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]

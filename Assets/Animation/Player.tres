@@ -1,0 +1,105 @@
+[gd_resource type="SpriteFrames" load_steps=14 format=3 uid="uid://bpfhjevtpm2fw"]
+
+[ext_resource type="Texture2D" uid="uid://ciw5qu0858ts3" path="res://Assets/Sprites/Sez/Sez_Default.png" id="1_mnw0y"]
+[ext_resource type="Texture2D" uid="uid://c1uppheyrhbi6" path="res://Assets/Sprites/Sez/Sez_Swing_1.png" id="2_ogygp"]
+[ext_resource type="Texture2D" uid="uid://chheevw4jicbq" path="res://Assets/Sprites/Sez/Sez_Swing_2.png" id="3_eg81a"]
+[ext_resource type="Texture2D" uid="uid://m8tfg647db0" path="res://Assets/Sprites/Sez/Sez_Swing_3.png" id="4_qbchl"]
+[ext_resource type="Texture2D" uid="uid://bjnoetbn7g7ga" path="res://Assets/Sprites/Sez/Sez_Swing_4.png" id="5_h1jr7"]
+[ext_resource type="Texture2D" uid="uid://bf3h8vugi1t5t" path="res://Assets/Sprites/Sez/Sez_Swing_5.png" id="6_0gmc5"]
+[ext_resource type="Texture2D" uid="uid://cn6kjjywtj6ht" path="res://Assets/Sprites/Sez/Sez_Block.png" id="7_sn3s5"]
+[ext_resource type="Texture2D" uid="uid://1ra55lb878gi" path="res://Assets/Sprites/Sez/Sez_Forward1.png" id="8_aebry"]
+[ext_resource type="Texture2D" uid="uid://7mhgrht2dq2u" path="res://Assets/Sprites/Sez/Sez_Forward2.png" id="9_ct8oa"]
+[ext_resource type="Texture2D" uid="uid://0xvi27k44v7d" path="res://Assets/Sprites/Sez/Sez_Left1.png" id="10_ls5er"]
+[ext_resource type="Texture2D" uid="uid://drg8qiydb6l7d" path="res://Assets/Sprites/Sez/Sez_Left2.png" id="11_140rp"]
+[ext_resource type="Texture2D" uid="uid://cci3exxbgghvy" path="res://Assets/Sprites/Sez/Sez_Right1.png" id="12_t2tpr"]
+[ext_resource type="Texture2D" uid="uid://0yvfg80q473j" path="res://Assets/Sprites/Sez/Sez_Right2.png" id="13_xo6od"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mnw0y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ogygp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eg81a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qbchl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h1jr7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0gmc5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h1jr7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qbchl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eg81a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ogygp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_mnw0y")
+}],
+"loop": true,
+"name": &"Attacking",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_sn3s5")
+}],
+"loop": true,
+"name": &"Blocking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mnw0y")
+}],
+"loop": true,
+"name": &"Static",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_aebry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ct8oa")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_ls5er")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_140rp")
+}],
+"loop": true,
+"name": &"Walking_Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_t2tpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_xo6od")
+}],
+"loop": true,
+"name": &"Walking_Right",
+"speed": 5.0
+}]

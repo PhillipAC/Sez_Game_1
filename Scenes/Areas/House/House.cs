@@ -15,14 +15,16 @@ public partial class House : Node2D
 	{
 		if(HouseDoorIsEntered)
 		{
-			GetTree().ChangeSceneToFile("res://Scenes/Areas/FrontYard/FrontYard.tscn");
+			var root = GetTree().Root;
+			CallDeferred("free");
+			root.AddChild(GD.Load<PackedScene>("res://Scenes/Areas/FrontYard/FrontYard.tscn").Instantiate());
 		}
 	}
 
 	private void OnArea2DBodyEntered(Node2D body)
 	{
 		if(body.GetType() == typeof(Player))
-			HouseDoorIsEntered = true;
+			((Player)body).MoveToScene(this, "res://Scenes/Areas/FrontYard/FrontYard.tscn", new Vector2(168, 294));
 	}
 
 	private void OnArea2DBodyExited(Node2D body)

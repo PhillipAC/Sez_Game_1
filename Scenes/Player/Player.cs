@@ -1,13 +1,18 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
-
+	[Signal]
+    public delegate void UpdateHealthEventHandler(int health); 
+	
+	//public List<Enemy> EnemiesInAttackRange = new();
 	public bool EnemyCanAttack = false;
 	public bool IsDamageCooldown = false;
 	[Export]
-	public int Health = 100;
+	public int MaxHealth = 100;
+	public int Health;
 	public bool IsAlive = true;
 	public bool IsAttacking = false;
 	public bool IsBlocking = false;
@@ -20,7 +25,9 @@ public partial class Player : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Health = MaxHealth;
 		ScreenSize = GetViewportRect().Size;
+		EmitSignal(SignalName.UpdateHealth, Health);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,6 +61,26 @@ public partial class Player : CharacterBody2D
     {
         base._PhysicsProcess(delta);
     }
+
+	public void MoveToScene(Node2D currentScene, string newScene, Vector2 position)
+	{
+		var root = GetTree().Root.GetNode<Game>("Game");
+		currentScene.CallDeferred("free");
+		var scene = GD.Load<PackedScene>(newScene).Instantiate();
+		root.AddChild(scene);
+		Position = position;
+	}
+
+	public void ChangeHealthBy(int amount)
+	{
+		int newHealth = Health + amount;
+		if(newHealth > MaxHealth)
+			newHealth = MaxHealth;
+		else if(newHealth < 0)
+			newHealth = 0;
+		Health = newHealth;
+		EmitSignal(SignalName.UpdateHealth, Health);
+	}
 
     private Vector2 GetVelocity()
 	{
@@ -141,8 +168,7 @@ public partial class Player : CharacterBody2D
 	{
 		if(EnemyCanAttack && !IsDamageCooldown && !IsBlocking)
 		{
-			Health -= 10;
-			GD.Print($"Player Health {Health}");
+			ChangeHealthBy(-10);
 			GD.Print(Health);
 			IsDamageCooldown = true;
 			Timer cooldownTimer = GetNode<Timer>("DamageCooldown");
@@ -165,7 +191,6 @@ public partial class Player : CharacterBody2D
 		if(Input.IsActionPressed("Block") && !IsAttacking)
 		{
 			IsBlocking = true;
-			IsAttacking = false;
 		}
 		else
 		{

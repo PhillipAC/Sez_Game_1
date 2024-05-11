@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcrwmd0hxapju"]
+
+[ext_resource type="Script" path="res://Scenes/Items/Heart/Heart.cs" id="1_uwve3"]
+[ext_resource type="Texture2D" uid="uid://3rbinwap8cg5" path="res://Assets/Sprites/Heart/Heart.png" id="2_cr41r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2k61h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cr41r")
+}],
+"loop": true,
+"name": &"Default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ay68"]
+size = Vector2(37, 39)
+
+[node name="Heart" type="Area2D"]
+script = ExtResource("1_uwve3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.222)
+sprite_frames = SubResource("SpriteFrames_2k61h")
+animation = &"Default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7ay68")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEnter"]

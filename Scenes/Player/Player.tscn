@@ -125,7 +125,7 @@ y_sort_enabled = true
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_p07l8")
 animation = &"Walking_Right"
-frame_progress = 0.67247
+frame_progress = 0.824441
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

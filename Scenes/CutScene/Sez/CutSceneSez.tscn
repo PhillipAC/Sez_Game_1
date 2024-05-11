@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6wiewphuses6"]
+
+[ext_resource type="SpriteFrames" uid="uid://bpfhjevtpm2fw" path="res://Assets/Animation/Player.tres" id="1_7rf8v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fo5gp"]
+radius = 24.0
+height = 56.0
+
+[node name="CutSceneSez" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = ExtResource("1_7rf8v")
+animation = &"Attacking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 17)
+shape = SubResource("CapsuleShape2D_fo5gp")

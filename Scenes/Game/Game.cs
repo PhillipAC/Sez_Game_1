@@ -27,4 +27,9 @@ public partial class Game : Node
 		_gameScore++;
 		GetNode<HUD>("HUD").UpdateScore(_gameScore);
 	}
+
+	private void OnPlayerHealthUpdate(int health)
+	{
+		GetNode<HUD>("HUD").UpdateHealth(health);
+	}
 }

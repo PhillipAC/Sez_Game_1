@@ -1,6 +1,7 @@
 using Godot;
+using System;
 
-public partial class FrontYard : Node2D
+public partial class Heart : Area2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -12,9 +13,12 @@ public partial class FrontYard : Node2D
 	{
 	}
 
-	private void OnArea2DBodyEntered(Node2D body)
+	private void OnBodyEnter(Node2D body)
 	{
 		if(body.GetType() == typeof(Player))
-			((Player)body).MoveToScene(this, "res://Scenes/Areas/House/House.tscn", new Vector2(986, 526));
+		{
+			((Player)body).ChangeHealthBy(20);
+		}
+		CallDeferred("free");
 	}
 }
