@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbwungr46qv06"]
+
+[ext_resource type="PackedScene" uid="uid://5f1yvwvp47aa" path="res://Scenes/Areas/Backyard/BackyardTile.tscn" id="1_1fnen"]
+
+[node name="Backyard" type="Node2D"]
+y_sort_enabled = true
+
+[node name="TileMap" parent="." instance=ExtResource("1_1fnen")]
+layer_1/y_sort_enabled = true
