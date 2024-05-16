@@ -1,9 +1,61 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbwungr46qv06"]
+[gd_scene load_steps=4 format=3 uid="uid://cbwungr46qv06"]
 
 [ext_resource type="PackedScene" uid="uid://5f1yvwvp47aa" path="res://Scenes/Areas/Backyard/BackyardTile.tscn" id="1_1fnen"]
+[ext_resource type="PackedScene" uid="uid://b4dyvymvs1wqo" path="res://Scenes/Mobs/Snake/Snake.tscn" id="2_c6w3y"]
+[ext_resource type="PackedScene" uid="uid://bcrwmd0hxapju" path="res://Scenes/Items/Heart/Heart.tscn" id="3_8vonh"]
 
 [node name="Backyard" type="Node2D"]
 y_sort_enabled = true
 
 [node name="TileMap" parent="." instance=ExtResource("1_1fnen")]
-layer_1/y_sort_enabled = true
+
+[node name="Snake" parent="." instance=ExtResource("2_c6w3y")]
+position = Vector2(1019, 505)
+
+[node name="Snake2" parent="." instance=ExtResource("2_c6w3y")]
+position = Vector2(2575, 210)
+
+[node name="Snake3" parent="." instance=ExtResource("2_c6w3y")]
+position = Vector2(2792, 1264)
+
+[node name="Snake4" parent="." instance=ExtResource("2_c6w3y")]
+position = Vector2(2774, 1734)
+
+[node name="Snake5" parent="." instance=ExtResource("2_c6w3y")]
+position = Vector2(563, 1495)
+
+[node name="Heart" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1618, 1111)
+
+[node name="Heart2" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1522, 1108)
+
+[node name="Heart3" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1522, 1006)
+
+[node name="Heart4" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1624, 1003)
+
+[node name="Heart5" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1672, 1549)
+
+[node name="Heart6" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1603, 1546)
+
+[node name="Heart7" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1534, 116)
+
+[node name="Heart8" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1603, 119)
+
+[node name="Heart9" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(173, 113)
+
+[node name="Heart10" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(239, 119)
+
+[node name="Heart11" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(308, 116)
+
+[node name="Heart12" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(374, 113)
