@@ -38,7 +38,6 @@ namespace Sez_Game.Scenes.Fighters
         {
             if(!IsInDamageCooldown)
             {
-                GD.Print($"{GetType()} is receiving {damage} damage.");
                 IsInDamageCooldown = true;
                 GetNode<Timer>("DamageCooldown").Start();
                 ReceiveHealth(-1*damage);
@@ -72,19 +71,16 @@ namespace Sez_Game.Scenes.Fighters
             {
                 IsInAttackCooldown = true;
                 IsAttacking = true;
-                GD.Print($"{this.GetType()} will attack {AttackTargets.Count} targets");
                 AttackTargets.ForEach(
                     at => 
                         {
                             if(at.IsAlive)
                             {
-                                GD.Print($"{this.GetType()} is attacking {at.GetType()}");
                                 at.ReceiveDamage(damage);
                             }
                         }
                     );
                 AttackTargets = AttackTargets.Where(at => at.IsAlive).ToList();
-                GD.Print($"{GetType()}'s AttackCooldown started");
                 GetNode<Timer>("AttackCooldown").Start();
             }
         }
@@ -93,7 +89,6 @@ namespace Sez_Game.Scenes.Fighters
         {
             if (CheckIfFighter(body))
             {
-                GD.Print($"{this.GetType()} - The following entered hitbox: {body.GetType()}");
                 Fighter target = (Fighter)body;
                 AddTarget(target);
             }

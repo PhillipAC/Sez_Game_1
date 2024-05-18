@@ -49,7 +49,6 @@ public partial class Player : Fighter
             IsBlocking = false;
             if (AttemptAttack)
             {
-				GD.Print("Player will attempt to attack");
                 Attack(AttackDamage);
             }
         }
