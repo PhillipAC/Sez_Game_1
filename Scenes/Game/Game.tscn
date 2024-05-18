@@ -9,8 +9,6 @@
 y_sort_enabled = true
 script = ExtResource("1_loy0v")
 
-[node name="ScoreTimer" type="Timer" parent="."]
-
 [node name="Backyard" parent="." instance=ExtResource("2_x8888")]
 
 [node name="Player" parent="." instance=ExtResource("4_62oyy")]
@@ -24,5 +22,5 @@ y_sort_enabled = true
 position = Vector2(-756, -417.333)
 scale = Vector2(1.33333, 1.33333)
 
-[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="UpdateHealth" from="Player" to="." method="OnPlayerHealthUpdate"]
+[connection signal="UpdatePoints" from="Player" to="." method="OnPlayerPointsChange"]

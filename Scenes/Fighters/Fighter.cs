@@ -18,6 +18,7 @@ namespace Sez_Game.Scenes.Fighters
 
         public bool IsAlive {get; set;} = true;
         public bool IsAttacking {get; set;} = false;
+        public bool IsBlocking {get; set;} = false;
 
         public List<Fighter> AttackTargets {get; set;} = new List<Fighter>();
 
@@ -36,7 +37,7 @@ namespace Sez_Game.Scenes.Fighters
 
         protected virtual void ReceiveDamage(int damage)
         {
-            if(!IsInDamageCooldown)
+            if(!IsInDamageCooldown && !IsBlocking)
             {
                 IsInDamageCooldown = true;
                 GetNode<Timer>("DamageCooldown").Start();
@@ -77,6 +78,10 @@ namespace Sez_Game.Scenes.Fighters
                             if(at.IsAlive)
                             {
                                 at.ReceiveDamage(damage);
+                                if(!at.IsAlive)
+                                {
+                                    HandleDefeat(at);
+                                }
                             }
                         }
                     );
@@ -84,6 +89,11 @@ namespace Sez_Game.Scenes.Fighters
                 GetNode<Timer>("AttackCooldown").Start();
             }
         }
+
+        protected virtual void HandleDefeat(Fighter at)
+        {
+        }
+
 
         protected virtual void OnHitboxBodyShapeEntered(Node2D body)
         {

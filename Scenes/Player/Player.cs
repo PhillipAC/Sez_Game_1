@@ -1,15 +1,16 @@
 using System;
 using Godot;
 using Sez_Game.Scenes.Fighters;
+using Sez_Game.Scenes.Mobs;
 
 public partial class Player : Fighter
 {
+	[Signal]
+	public delegate void UpdatePointsEventHandler(int points);
 	[Export]
 	public int AttackDamage {get; set;} = 20;
 	[Export]
 	public int Speed {get; set;} = 400;
-
-	public bool IsBlocking {get; set;} = false;
 
 	public bool AttemptReset {get; set;} = false;
 	public bool AttemptAttack {get; set;} = false;
@@ -163,4 +164,12 @@ public partial class Player : Fighter
 		 
 		animatedSprite2D.Play();
 	}
+
+    protected override void HandleDefeat(Fighter fighter)
+    {
+        if(fighter.GetType().IsSubclassOf(typeof(Enemy)))
+		{
+			EmitSignal(SignalName.UpdatePoints,((Enemy)fighter).Points);
+		}
+    }
 }

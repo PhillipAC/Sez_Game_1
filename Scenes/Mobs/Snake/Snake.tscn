@@ -43,7 +43,6 @@ radius = 174.287
 [node name="Snake" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_40p0v")
-AttackDamage = 1
 
 [node name="CollisionArea" type="CollisionShape2D" parent="."]
 position = Vector2(-28, 60)
