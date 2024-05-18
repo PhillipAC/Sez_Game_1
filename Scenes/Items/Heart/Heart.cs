@@ -17,7 +17,7 @@ public partial class Heart : Area2D
 	{
 		if(body.GetType() == typeof(Player))
 		{
-			((Player)body).ChangeHealthBy(20);
+			((Player)body).ReceiveHealth(20);
 		}
 		CallDeferred("free");
 	}

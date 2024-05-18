@@ -17,13 +17,12 @@ scale = Vector2(0.75, 0.75)
 collision_layer = 3
 script = ExtResource("1_y03pg")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Visuals" type="AnimatedSprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.25, 0.25)
 sprite_frames = ExtResource("2_qpxxm")
-animation = &"Walking_Right"
-frame_progress = 0.824441
+animation = &"Idle"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -39,9 +38,11 @@ shape = SubResource("CapsuleShape2D_q24v2")
 
 [node name="DamageCooldown" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
 
 [connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyShapeEntered"]
 [connection signal="body_exited" from="Hitbox" to="." method="OnHitboxBodyShapeExited"]

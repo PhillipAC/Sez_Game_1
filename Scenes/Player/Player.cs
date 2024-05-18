@@ -1,61 +1,105 @@
-using Godot;
 using System;
-using System.Collections.Generic;
+using Godot;
+using Sez_Game.Scenes.Fighters;
 
-public partial class Player : CharacterBody2D
+public partial class Player : Fighter
 {
-	[Signal]
-    public delegate void UpdateHealthEventHandler(int health); 
-	
-	//public List<Enemy> EnemiesInAttackRange = new();
-	public bool EnemyCanAttack = false;
-	public bool IsDamageCooldown = false;
 	[Export]
-	public int MaxHealth = 100;
-	public int Health;
-	public bool IsAlive = true;
-	public bool IsAttacking = false;
-	public bool IsBlocking = false;
-
+	public int AttackDamage {get; set;} = 20;
 	[Export]
 	public int Speed {get; set;} = 400;
 
-	public Vector2 ScreenSize;
+	public bool IsBlocking {get; set;} = false;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public bool AttemptReset {get; set;} = false;
+	public bool AttemptAttack {get; set;} = false;
+	public bool AttemptBlock {get; set;} = false;
+	public Vector2 MovementVector {get; set;} = Vector2.Zero;
+
+    public bool ControlEanbled { get; set; } = true;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
-		Health = MaxHealth;
-		ScreenSize = GetViewportRect().Size;
-		EmitSignal(SignalName.UpdateHealth, Health);
+		base._Ready();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-	{
-		CheckBeingAttacked();
-		Vector2 velocity = GetVelocity();
-		if(IsAlive)
-		{
-			SetAnimation(velocity);
-			CheckUserInput();
-			MovePlayer(velocity);
-		}
+    {
+        if (ControlEanbled)
+        {
+            SetInputs();
+        }
+        HandleCombate();
+        Vector2 velocity = GetVelocity(delta);
+        SetAnimation(velocity);
+        Move(velocity);
+        HandleMenuCommands();
+    }
 
-		if(Health <= 0)
-		{
-			IsAlive = false;
-			Health = 0;
-			GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = "Static";
-			GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipV = true;
-		}
+    private void HandleCombate()
+    {
+        if (AttemptBlock)
+        {
+            IsBlocking = true;
+        }
+        else
+        {
+            IsBlocking = false;
+            if (AttemptAttack)
+            {
+				GD.Print("Player will attempt to attack");
+                Attack(AttackDamage);
+            }
+        }
+    }
 
-		if(Input.IsActionPressed("Restart"))
+    private void HandleMenuCommands()
+    {
+        if(AttemptReset)
 		{
 			var scene = GetTree().CurrentScene;
 			GetTree().ChangeSceneToFile(scene.SceneFilePath);
 		}
-	}
+    }
+
+
+    private void SetInputs()
+    {
+        var movementVector = Vector2.Zero;
+		var attemptAttack = false;
+		var attemptBlock = false;
+
+		if(Input.IsActionPressed("Right"))
+		{
+			movementVector.X += 1;
+		}
+		if(Input.IsActionPressed("Left"))
+		{
+			movementVector.X -= 1;
+		}
+		if(Input.IsActionPressed("Up"))
+		{
+			movementVector.Y -= 1;
+		}
+		if(Input.IsActionPressed("Down"))
+		{
+			movementVector.Y += 1;
+		}
+		if(Input.IsActionPressed("Block"))
+		{
+			attemptBlock = true;
+		}
+		else if(Input.IsActionPressed("Attack"))
+		{
+			attemptAttack = true;
+		}
+		AttemptAttack = attemptAttack;
+		AttemptBlock = attemptBlock;
+		MovementVector = movementVector;
+    }
+
 
     public override void _PhysicsProcess(double delta)
     {
@@ -71,136 +115,53 @@ public partial class Player : CharacterBody2D
 		Position = position;
 	}
 
-	public void ChangeHealthBy(int amount)
+    private Vector2 GetVelocity(double delta)
 	{
-		int newHealth = Health + amount;
-		if(newHealth > MaxHealth)
-			newHealth = MaxHealth;
-		else if(newHealth < 0)
-			newHealth = 0;
-		Health = newHealth;
-		EmitSignal(SignalName.UpdateHealth, Health);
-	}
-
-    private Vector2 GetVelocity()
-	{
-		var velocity = Vector2.Zero;
-
-		if(Input.IsActionPressed("Right"))
-		{
-			velocity.X += 1;
-		}
-		if(Input.IsActionPressed("Left"))
-		{
-			velocity.X -= 1;
-		}
-		if(Input.IsActionPressed("Up"))
-		{
-			velocity.Y -= 1;
-		}
-		if(Input.IsActionPressed("Down"))
-		{
-			velocity.Y += 1;
-		}
-
-		if(velocity.Length() > 0)
-			return velocity.Normalized() * Speed;
+		if(MovementVector.Length() > 0)
+			return MovementVector.Normalized()*(float)(Speed * delta);
 
 		return Vector2.Zero;
 	}
 
 	private void SetAnimation(Vector2 velocity)
 	{
-		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		if(IsBlocking)
+		var animatedSprite2D = GetNode<AnimatedSprite2D>("Visuals");
+		if(!IsAlive)
 		{
-			animatedSprite2D.Animation = "Blocking";
+			animatedSprite2D.Animation = "Idle";
+			animatedSprite2D.FlipV = true;
 		}
-		else if(IsAttacking)
+		else
 		{
-			animatedSprite2D.Animation = "Attacking";
-		}
-		else if(velocity.X != 0)
-		{
-			if(velocity.X > 0)
+			if(IsBlocking)
 			{
-				animatedSprite2D.Animation = "Walking_Right";
+				animatedSprite2D.Animation = "Blocking";
+			}
+			else if(IsAttacking)
+			{
+				animatedSprite2D.Animation = "Attacking";
+			}
+			else if(velocity.X != 0)
+			{
+				if(velocity.X > 0)
+				{
+					animatedSprite2D.Animation = "Walking_Right";
+				}
+				else
+				{
+					animatedSprite2D.Animation = "Walking_Left";
+				}
+			}
+			else if(velocity.Y != 0)
+			{
+				animatedSprite2D.Animation = "Walking";
 			}
 			else
 			{
-				animatedSprite2D.Animation = "Walking_Left";
+				animatedSprite2D.Animation = "Idle";
 			}
 		}
-		else if(velocity.Y != 0)
-		{
-			animatedSprite2D.Animation = "Walking";
-		}
-		else
-		{
-			animatedSprite2D.Animation = "Static";
-		}
+		 
 		animatedSprite2D.Play();
-	}
-
-	private void MovePlayer(Vector2 velocity)
-	{
-		this.Velocity = velocity;
-		MoveAndSlide();
-	}
-
-	private void OnHitboxBodyShapeEntered(Node2D body)
-	{
-		if (body.GetType() == typeof(Snake))
-		{
-			EnemyCanAttack = true;
-		}
-	}
-
-	private void OnHitboxBodyShapeExited(Node2D body)
-	{
-		if (body.GetType() == typeof(Snake))
-		{
-			EnemyCanAttack = false;
-		}
-	}
-
-	private void CheckBeingAttacked()
-	{
-		if(EnemyCanAttack && !IsDamageCooldown && !IsBlocking)
-		{
-			ChangeHealthBy(-10);
-			GD.Print(Health);
-			IsDamageCooldown = true;
-			Timer cooldownTimer = GetNode<Timer>("DamageCooldown");
-			cooldownTimer.Start();
-		}
-	}
-
-	private void OnDamageCooldownTimeout()
-	{
-		IsDamageCooldown = false;
-	}
-
-	private void OnAttackCooldownTimeout()
-	{
-		IsAttacking = false;
-	}
-
-	private void CheckUserInput()
-	{
-		if(Input.IsActionPressed("Block") && !IsAttacking)
-		{
-			IsBlocking = true;
-		}
-		else
-		{
-			IsBlocking = false;
-		}
-
-		if(Input.IsActionPressed("Attack") && !IsAttacking && !IsBlocking)
-		{
-			IsAttacking = true;
-			GetNode<Timer>("AttackCooldown").Start();
-		}
 	}
 }

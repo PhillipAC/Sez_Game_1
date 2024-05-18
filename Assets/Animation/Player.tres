@@ -67,7 +67,7 @@ animations = [{
 "texture": ExtResource("1_mnw0y")
 }],
 "loop": true,
-"name": &"Static",
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{

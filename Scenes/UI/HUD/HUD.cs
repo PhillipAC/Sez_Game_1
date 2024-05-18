@@ -34,7 +34,6 @@ public partial class HUD : Node2D
 
 	public void UpdateScore(int score)
 	{
-		GD.Print(score.ToString());
 		Label scoreLabel = GetNode<Label>("ScoreLabel");
 		scoreLabel.Text = _defaultScoreText + score.ToString();
 	}
