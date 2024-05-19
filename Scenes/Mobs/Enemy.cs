@@ -7,7 +7,7 @@ namespace Sez_Game.Scenes.Mobs
     {
 		[Export]
 		public int Points = 10;
-		
+
 		[Export]
 		public double Speed = 200;
 		[Export]
@@ -71,10 +71,10 @@ namespace Sez_Game.Scenes.Mobs
 				velocity = (ChaseTarget.Position - Position)
 					.Normalized() * (float)(Speed * delta);
 			}
-			else
+			/*else
 			{
 				velocity = velocity.Lerp(Godot.Vector2.Zero, (float)0.07);
-			}
+			}*/
 			return velocity;
 		}
 

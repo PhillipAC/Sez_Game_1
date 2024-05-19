@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://odksn2yfw2h3"]
+[gd_scene load_steps=7 format=3 uid="uid://odksn2yfw2h3"]
 
 [ext_resource type="Script" path="res://Scenes/Areas/House/House.cs" id="1_1tsl0"]
 [ext_resource type="PackedScene" uid="uid://4xf2lyoppmr8" path="res://Scenes/Areas/House/HouseBackground.tscn" id="2_eunwr"]
@@ -8,18 +8,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_as87s"]
 size = Vector2(192, 91)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2leeh"]
+size = Vector2(124, 56)
+
 [node name="House" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_1tsl0")
 
 [node name="HouseBackground" parent="." instance=ExtResource("2_eunwr")]
 
-[node name="Snake" parent="." instance=ExtResource("4_ohrly")]
-position = Vector2(214, 192)
+[node name="FrontDoor" type="Area2D" parent="."]
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontDoor"]
 position = Vector2(994, 631)
 shape = SubResource("RectangleShape2D_as87s")
 
@@ -38,5 +38,11 @@ position = Vector2(190, 549)
 [node name="Heart4" parent="." instance=ExtResource("4_qea6y")]
 position = Vector2(240, 550)
 
-[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
-[connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]
+[node name="Backdoor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Backdoor"]
+position = Vector2(190, 31)
+shape = SubResource("RectangleShape2D_2leeh")
+
+[connection signal="body_entered" from="FrontDoor" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_entered" from="Backdoor" to="." method="OnBackdoorEntered"]

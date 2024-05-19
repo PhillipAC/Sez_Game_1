@@ -1,61 +1,108 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbwungr46qv06"]
+[gd_scene load_steps=7 format=3 uid="uid://cbwungr46qv06"]
 
 [ext_resource type="PackedScene" uid="uid://5f1yvwvp47aa" path="res://Scenes/Areas/Backyard/BackyardTile.tscn" id="1_1fnen"]
+[ext_resource type="Script" path="res://Scenes/Areas/Backyard/Backyard.cs" id="1_a42ls"]
 [ext_resource type="PackedScene" uid="uid://b4dyvymvs1wqo" path="res://Scenes/Mobs/Snake/Snake.tscn" id="2_c6w3y"]
 [ext_resource type="PackedScene" uid="uid://bcrwmd0hxapju" path="res://Scenes/Items/Heart/Heart.tscn" id="3_8vonh"]
+[ext_resource type="PackedScene" uid="uid://ort6gxs4bf1f" path="res://Scenes/Mobs/Ghost/Ghost.tscn" id="4_uoqbk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lq40"]
+size = Vector2(134.75, 74)
 
 [node name="Backyard" type="Node2D"]
 y_sort_enabled = true
+position = Vector2(-133, -16)
+script = ExtResource("1_a42ls")
 
 [node name="TileMap" parent="." instance=ExtResource("1_1fnen")]
+position = Vector2(0, 0)
+scale = Vector2(0.907, 1)
 
 [node name="Snake" parent="." instance=ExtResource("2_c6w3y")]
 position = Vector2(1019, 505)
 
 [node name="Snake2" parent="." instance=ExtResource("2_c6w3y")]
-position = Vector2(2575, 210)
+position = Vector2(1989, 240)
 
 [node name="Snake3" parent="." instance=ExtResource("2_c6w3y")]
-position = Vector2(2792, 1264)
+position = Vector2(2389, 1016)
 
 [node name="Snake4" parent="." instance=ExtResource("2_c6w3y")]
-position = Vector2(2774, 1734)
+position = Vector2(2293, 1424)
 
 [node name="Snake5" parent="." instance=ExtResource("2_c6w3y")]
-position = Vector2(563, 1495)
+position = Vector2(397, 1328)
 
 [node name="Heart" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1618, 1111)
+position = Vector2(1373, 936)
 
 [node name="Heart2" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1522, 1108)
+position = Vector2(1293, 936)
 
 [node name="Heart3" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1522, 1006)
+position = Vector2(1293, 848)
 
 [node name="Heart4" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1624, 1003)
+position = Vector2(1373, 848)
 
 [node name="Heart5" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1672, 1549)
+position = Vector2(1429, 1304)
 
 [node name="Heart6" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1603, 1546)
+position = Vector2(1357, 1304)
 
 [node name="Heart7" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1534, 116)
+position = Vector2(1301, 96)
 
 [node name="Heart8" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1603, 119)
+position = Vector2(1397, 96)
 
 [node name="Heart9" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(173, 113)
+position = Vector2(149, 96)
 
 [node name="Heart10" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(239, 119)
+position = Vector2(197, 96)
 
 [node name="Heart11" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(308, 116)
+position = Vector2(245, 96)
 
 [node name="Heart12" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(374, 113)
+position = Vector2(293, 96)
+
+[node name="Ghost" parent="." instance=ExtResource("4_uoqbk")]
+position = Vector2(2129, 675)
+
+[node name="Heart13" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(949, 1440)
+
+[node name="Heart14" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1013, 1440)
+
+[node name="Heart15" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1269, 1440)
+
+[node name="Heart16" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1397, 1440)
+
+[node name="Heart17" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1333, 1440)
+
+[node name="Heart18" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1461, 1440)
+
+[node name="Heart19" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1525, 1440)
+
+[node name="Heart20" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1589, 1440)
+
+[node name="Heart21" parent="." instance=ExtResource("3_8vonh")]
+position = Vector2(1653, 1440)
+
+[node name="Backdoor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Backdoor"]
+position = Vector2(1098.38, 1499)
+shape = SubResource("RectangleShape2D_2lq40")
+
+[connection signal="body_entered" from="Backdoor" to="." method="OnBackdoorEntered"]

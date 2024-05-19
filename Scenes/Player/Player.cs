@@ -29,13 +29,12 @@ public partial class Player : Fighter
 	public override void _Process(double delta)
     {
         if (ControlEanbled)
-        {
             SetInputs();
-        }
         HandleCombate();
         Vector2 velocity = GetVelocity(delta);
         SetAnimation(velocity);
-        Move(velocity);
+		if(IsAlive)
+        	Move(velocity);
         HandleMenuCommands();
     }
 
@@ -94,6 +93,10 @@ public partial class Player : Fighter
 		else if(Input.IsActionPressed("Attack"))
 		{
 			attemptAttack = true;
+		}
+		if(Input.IsActionPressed("Reset"))
+		{
+			AttemptReset = true;
 		}
 		AttemptAttack = attemptAttack;
 		AttemptBlock = attemptBlock;

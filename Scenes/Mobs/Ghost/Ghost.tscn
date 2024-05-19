@@ -1,0 +1,163 @@
+[gd_scene load_steps=18 format=3 uid="uid://ort6gxs4bf1f"]
+
+[ext_resource type="Script" path="res://Scenes/Mobs/Ghost/Ghost.cs" id="1_26cbe"]
+[ext_resource type="Texture2D" uid="uid://0sclrduj4r52" path="res://Assets/Sprites/Ghost/ghost.png" id="2_5kgth"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2fo0r"]
+radius = 33.921
+height = 88.9412
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoy0x"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22pe4"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prbhb"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cbxd"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dab3g"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5301w"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b8hj"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyv6x"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yrbf"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(1024, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smji"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(1280, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aolxq"]
+atlas = ExtResource("2_5kgth")
+region = Rect2(1536, 256, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kr2eu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoy0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22pe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prbhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cbxd")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dab3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5301w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b8hj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyv6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yrbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aolxq")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n7ai5"]
+radius = 848.236
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_63run"]
+radius = 174.287
+
+[node name="Ghost" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_26cbe")
+Points = 20
+Speed = 250.0
+AttackDamage = 15
+
+[node name="CollisionArea" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(8, 60)
+scale = Vector2(2.88907, 1.5291)
+shape = SubResource("CapsuleShape2D_2fo0r")
+
+[node name="Visuals" type="AnimatedSprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_kr2eu")
+animation = &"Moving"
+frame_progress = 0.772731
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_n7ai5")
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_63run")
+
+[node name="DamageCooldown" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Health" type="Label" parent="."]
+visible = false
+offset_left = -74.0
+offset_top = -210.0
+offset_right = -34.0
+offset_bottom = -184.0
+scale = Vector2(4.185, 4.185)
+text = "Test"
+
+[connection signal="UpdateHealth" from="." to="." method="HandleHealthUpdate"]
+[connection signal="body_entered" from="DetectionArea" to="." method="OnBodyShapeEntered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="OnBodyShapeExited"]
+[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyShapeEntered"]
+[connection signal="body_exited" from="Hitbox" to="." method="OnHitboxBodyShapeExited"]
+[connection signal="timeout" from="DamageCooldown" to="." method="OnDamageCooldownTimeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="OnAttackCooldownTimeout"]

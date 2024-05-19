@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://kq6m3wuxmdch"]
+
+[ext_resource type="Script" path="res://Scenes/Areas/FrontYardDemo/FrontYardDemo.cs" id="1_8xmgg"]
+[ext_resource type="PackedScene" uid="uid://b4dyvymvs1wqo" path="res://Scenes/Mobs/Snake/Snake.tscn" id="1_smpjj"]
+[ext_resource type="PackedScene" uid="uid://divurqysl3ekx" path="res://Scenes/Areas/FrontYardDemo/FrontYardBackgroundDemo.tscn" id="3_chguh"]
+[ext_resource type="PackedScene" uid="uid://bcrwmd0hxapju" path="res://Scenes/Items/Heart/Heart.tscn" id="4_3ffx5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sn85v"]
+size = Vector2(122, 86)
+
+[node name="FrontYardDemo" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_8xmgg")
+
+[node name="Default" parent="." instance=ExtResource("3_chguh")]
+position = Vector2(0, 0)
+
+[node name="Snake" parent="." instance=ExtResource("1_smpjj")]
+y_sort_enabled = true
+position = Vector2(420, 476)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(160, 152)
+shape = SubResource("RectangleShape2D_sn85v")
+
+[node name="Heart" parent="." instance=ExtResource("4_3ffx5")]
+position = Vector2(352, 85)
+
+[node name="Heart2" parent="." instance=ExtResource("4_3ffx5")]
+position = Vector2(930, 89)
+
+[node name="Heart3" parent="." instance=ExtResource("4_3ffx5")]
+position = Vector2(95, 290)
+
+[node name="Heart4" parent="." instance=ExtResource("4_3ffx5")]
+position = Vector2(155, 230)
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

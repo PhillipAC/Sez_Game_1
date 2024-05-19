@@ -27,9 +27,9 @@ public partial class House : Node2D
 			((Player)body).MoveToScene(this, "res://Scenes/Areas/FrontYard/FrontYard.tscn", new Vector2(168, 294));
 	}
 
-	private void OnArea2DBodyExited(Node2D body)
+	private void OnBackdoorEntered(Node2D body)
 	{
 		if(body.GetType() == typeof(Player))
-			HouseDoorIsEntered = false;
+			((Player)body).MoveToScene(this, "res://Scenes/Areas/BackYard/BackYard.tscn", new Vector2(1000, 1400));
 	}
 }

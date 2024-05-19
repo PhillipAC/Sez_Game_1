@@ -10,9 +10,10 @@ y_sort_enabled = true
 script = ExtResource("1_loy0v")
 
 [node name="Backyard" parent="." instance=ExtResource("2_x8888")]
+position = Vector2(0, 0)
 
 [node name="Player" parent="." instance=ExtResource("4_62oyy")]
-position = Vector2(697, 273)
+position = Vector2(540, 319)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 y_sort_enabled = true
