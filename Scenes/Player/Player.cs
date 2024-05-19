@@ -17,6 +17,7 @@ public partial class Player : Fighter
 	public bool AttemptBlock {get; set;} = false;
 	public Vector2 MovementVector {get; set;} = Vector2.Zero;
 
+	[Export]
     public bool ControlEanbled { get; set; } = true;
 
     // Called when the node enters the scene tree for the first time.
@@ -29,13 +30,15 @@ public partial class Player : Fighter
 	public override void _Process(double delta)
     {
         if (ControlEanbled)
+		{
             SetInputs();
-        HandleCombate();
-        Vector2 velocity = GetVelocity(delta);
-        SetAnimation(velocity);
-		if(IsAlive)
-        	Move(velocity);
-        HandleMenuCommands();
+			HandleCombate();
+			Vector2 velocity = GetVelocity(delta);
+			SetAnimation(velocity);
+			if(IsAlive)
+				Move(velocity);
+			HandleMenuCommands();
+		}
     }
 
     private void HandleCombate()
@@ -114,7 +117,8 @@ public partial class Player : Fighter
 		var root = GetTree().Root.GetNode<Game>("Game");
 		currentScene.CallDeferred("free");
 		var scene = GD.Load<PackedScene>(newScene).Instantiate();
-		root.AddChild(scene);
+		//root.AddChild(scene);
+		root.CallDeferred("add_child", scene);
 		Position = position;
 	}
 
@@ -128,6 +132,8 @@ public partial class Player : Fighter
 
 	private void SetAnimation(Vector2 velocity)
 	{
+		GD.Print("Setting Animation");
+		GD.Print(IsAttacking);
 		var animatedSprite2D = GetNode<AnimatedSprite2D>("Visuals");
 		if(!IsAlive)
 		{

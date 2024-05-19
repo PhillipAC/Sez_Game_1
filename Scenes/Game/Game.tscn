@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4e6yyk1hp4pv"]
+[gd_scene load_steps=6 format=3 uid="uid://c4e6yyk1hp4pv"]
 
 [ext_resource type="Script" path="res://Scenes/Game/Game.cs" id="1_loy0v"]
 [ext_resource type="PackedScene" uid="uid://cbwungr46qv06" path="res://Scenes/Areas/Backyard/Backyard.tscn" id="2_x8888"]
 [ext_resource type="PackedScene" uid="uid://bgpwvyypsrkxh" path="res://Scenes/UI/HUD/HUD.tscn" id="3_tfvqf"]
 [ext_resource type="PackedScene" uid="uid://clb3nf5f21510" path="res://Scenes/Player/Player.tscn" id="4_62oyy"]
+[ext_resource type="AudioStream" uid="uid://w2l2mth13ckd" path="res://Assets/Sound/Music/little town - orchestral.ogg" id="5_8sihg"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -13,7 +14,7 @@ script = ExtResource("1_loy0v")
 position = Vector2(0, 0)
 
 [node name="Player" parent="." instance=ExtResource("4_62oyy")]
-position = Vector2(540, 319)
+position = Vector2(1311, 280)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 y_sort_enabled = true
@@ -22,6 +23,12 @@ y_sort_enabled = true
 y_sort_enabled = true
 position = Vector2(-756, -417.333)
 scale = Vector2(1.33333, 1.33333)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2(-1996, -454.667)
+scale = Vector2(1.33333, 1.33333)
+stream = ExtResource("5_8sihg")
+autoplay = true
 
 [connection signal="UpdateHealth" from="Player" to="." method="OnPlayerHealthUpdate"]
 [connection signal="UpdatePoints" from="Player" to="." method="OnPlayerPointsChange"]

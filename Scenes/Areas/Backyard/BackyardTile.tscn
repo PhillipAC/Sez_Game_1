@@ -4,7 +4,6 @@
 
 [node name="TileMap" type="TileMap"]
 y_sort_enabled = true
-position = Vector2(0, 1)
 tile_set = ExtResource("1_07kiu")
 format = 2
 layer_0/name = "Ground"

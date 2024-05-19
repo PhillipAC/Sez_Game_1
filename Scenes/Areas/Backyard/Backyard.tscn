@@ -11,12 +11,9 @@ size = Vector2(134.75, 74)
 
 [node name="Backyard" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(-133, -16)
 script = ExtResource("1_a42ls")
 
 [node name="TileMap" parent="." instance=ExtResource("1_1fnen")]
-position = Vector2(0, 0)
-scale = Vector2(0.907, 1)
 
 [node name="Snake" parent="." instance=ExtResource("2_c6w3y")]
 position = Vector2(1019, 505)
@@ -34,22 +31,22 @@ position = Vector2(2293, 1424)
 position = Vector2(397, 1328)
 
 [node name="Heart" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1373, 936)
+position = Vector2(1513, 943)
 
 [node name="Heart2" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1293, 936)
+position = Vector2(1433, 943)
 
 [node name="Heart3" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1293, 848)
+position = Vector2(1433, 855)
 
 [node name="Heart4" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1373, 848)
+position = Vector2(1513, 855)
 
 [node name="Heart5" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1429, 1304)
+position = Vector2(1563, 1314)
 
 [node name="Heart6" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1357, 1304)
+position = Vector2(1491, 1314)
 
 [node name="Heart7" parent="." instance=ExtResource("3_8vonh")]
 position = Vector2(1301, 96)
@@ -73,36 +70,36 @@ position = Vector2(293, 96)
 position = Vector2(2129, 675)
 
 [node name="Heart13" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(949, 1440)
+position = Vector2(1061, 1445)
 
 [node name="Heart14" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1013, 1440)
+position = Vector2(1125, 1448)
 
 [node name="Heart15" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1269, 1440)
+position = Vector2(1381, 1445)
 
 [node name="Heart16" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1397, 1440)
+position = Vector2(1509, 1445)
 
 [node name="Heart17" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1333, 1440)
+position = Vector2(1445, 1445)
 
 [node name="Heart18" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1461, 1440)
+position = Vector2(1573, 1445)
 
 [node name="Heart19" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1525, 1440)
+position = Vector2(1637, 1445)
 
 [node name="Heart20" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1589, 1440)
+position = Vector2(1701, 1445)
 
 [node name="Heart21" parent="." instance=ExtResource("3_8vonh")]
-position = Vector2(1653, 1440)
+position = Vector2(1765, 1445)
 
 [node name="Backdoor" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Backdoor"]
-position = Vector2(1098.38, 1499)
+position = Vector2(1210.38, 1504)
 shape = SubResource("RectangleShape2D_2lq40")
 
 [connection signal="body_entered" from="Backdoor" to="." method="OnBackdoorEntered"]

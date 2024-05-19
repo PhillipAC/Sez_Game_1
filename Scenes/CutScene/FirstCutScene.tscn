@@ -1,0 +1,170 @@
+[gd_scene load_steps=7 format=3 uid="uid://bipbflg3e5vj3"]
+
+[ext_resource type="PackedScene" uid="uid://5f1yvwvp47aa" path="res://Scenes/Areas/Backyard/BackyardTile.tscn" id="1_nvu8l"]
+[ext_resource type="Script" path="res://Scenes/CutScene/FirstCutScene.cs" id="1_w3emw"]
+[ext_resource type="PackedScene" uid="uid://clb3nf5f21510" path="res://Scenes/Player/Player.tscn" id="2_mtvsy"]
+
+[sub_resource type="Animation" id="Animation_7h3b1"]
+resource_name = "Cutscene"
+length = 9.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(230, -0.25, 0, 0.25, 0, 641, -0.25, 0, 0.25, 0, 641, -0.25, 0, 0.25, 0, 1226, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.9, 6.1, 9.9)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(352, -0.25, 0, 0.25, 0, 352, -0.25, 0, 0.25, 0, 352, -0.25, 0, 0.25, 0, 404, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2.9, 6.1, 9.9)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.9, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Player")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3, 6.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [Vector2(1, 0)],
+"method": &"SetAnimation"
+}, {
+"args": [Vector2(0, 0)],
+"method": &"SetAnimation"
+}, {
+"args": [Vector2(2, 0)],
+"method": &"SetAnimation"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Player:IsAttacking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.9, 6.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_cj67c"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(230, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(352, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Player:IsAttacking")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8h8jc"]
+_data = {
+"Cutscene": SubResource("Animation_7h3b1"),
+"RESET": SubResource("Animation_cj67c")
+}
+
+[node name="FirstCutScene" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_w3emw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+libraries = {
+"": SubResource("AnimationLibrary_8h8jc")
+}
+
+[node name="TileMap" parent="." instance=ExtResource("1_nvu8l")]
+
+[node name="Player" parent="." instance=ExtResource("2_mtvsy")]
+position = Vector2(230, 352)
+ControlEanbled = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(575, 324)
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+z_index = 1
+offset_left = 290.0
+offset_top = 87.0
+offset_right = 866.0
+offset_bottom = 227.0
+
+[node name="Label" type="Label" parent="Panel"]
+z_index = 2
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 36
+text = "I am Sez! 
+It is time to explore!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="AnimationComplete"]

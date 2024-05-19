@@ -16,8 +16,11 @@ namespace Sez_Game.Scenes.Fighters
         [Export]
         public int Health {get; set;} = 100;
 
+        [Export]
         public bool IsAlive {get; set;} = true;
+        [Export]
         public bool IsAttacking {get; set;} = false;
+        [Export]
         public bool IsBlocking {get; set;} = false;
 
         public List<Fighter> AttackTargets {get; set;} = new List<Fighter>();
